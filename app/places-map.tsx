@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+// @ts-ignore - v tomto projektu chybí deklarace pro leaflet
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {
@@ -121,19 +122,6 @@ export default function PlacesMap({
         overflow: "hidden",
       }}
     >
-      <div
-        style={{
-          padding: "18px 20px 10px",
-          borderBottom: "1px solid #eef2f7",
-          background: "linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)",
-        }}
-      >
-        <h2 style={{ margin: 0, fontSize: 24, color: "#111827" }}>Interaktivní mapa</h2>
-        <p style={{ color: "#64748b", marginTop: 8, marginBottom: 0 }}>
-          Klikni na kartu a zvýrazní se bod v mapě. Klikni na bod a stránka přejde na kartu.
-        </p>
-      </div>
-
       <div style={{ padding: 16 }}>
         <div
           style={{
