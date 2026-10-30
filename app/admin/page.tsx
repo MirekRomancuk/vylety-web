@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase/client";
 import LogoutButton from "./logout-button";
 import NewPlaceForm from "./new-place-form";
@@ -221,7 +222,8 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div style={{ marginTop: 4 }}>
+              <div style={{ marginTop: 4, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
+                <Link href="/admin/reset-password" style={{ color: "white", fontWeight: 700 }}>Změnit heslo</Link>
                 <LogoutButton />
               </div>
             </div>

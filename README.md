@@ -18,7 +18,20 @@ na URL kompatibilního Photon `/api/` endpointu s povoleným CORS.
 
 Testy geokódování: `npm test`.
 
-## Lokální spuštění
+## Obnova a změna hesla
+
+Na `/admin/login` lze zvolit „Zapomenuté heslo / nastavit nové heslo“.
+Po zadání e-mailu Supabase odešle odkaz na `/admin/reset-password`, kde si
+uživatel sám zadá a potvrdí nové heslo. Formulář vyžaduje aktivní relaci
+z obnovovacího odkazu nebo předchozího přihlášení. Neplatný či prošlý odkaz
+nabídne návrat k nové žádosti. Nové heslo se neukládá do aplikace ani neloguje.
+
+V Supabase Authentication → URL Configuration musí být Site URL nastavená
+na ostrou doménu a v Redirect URLs výslovně povolená adresa
+`https://www.kamenka180.cz/admin/reset-password`. Pro místní testování se
+samostatně povoluje konkrétní místní callback; produkční nastavení nevyžaduje wildcard.
+
+## Spuštění vývojového serveru
 
 First, run the development server:
 

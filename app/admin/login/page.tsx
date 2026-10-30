@@ -8,25 +8,37 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [recovery, setRecovery] = useState(false);
+  const [message, setMessage] = useState("");
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     setErrorMessage("");
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setErrorMessage("Přihlášení se nepodařilo. Zkontroluj e-mail a heslo.");
-      return;
+    setMessage("");
+    try {
+      if (recovery) {
+        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+          redirectTo: `${window.location.origin}/admin/reset-password`,
+        });
+        if (error) {
+          setErrorMessage("E-mail se nepodařilo odeslat. Zkus to za chvíli znovu.");
+        } else {
+          setMessage("Pokud je tento e-mail registrovaný, přijde na něj odkaz pro nastavení nového hesla. Otevři nejnovější zprávu a zkontroluj i spam.");
+        }
+        return;
+      }
+      const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+      if (error) {
+        setErrorMessage("Přihlášení se nepodařilo. Zkontroluj e-mail a heslo.");
+        return;
+      }
+      window.location.href = "/admin";
+    } catch {
+      setErrorMessage("Spojení se nezdařilo. Zkontroluj připojení a zkus to znovu.");
+    } finally {
+      setLoading(false);
     }
-
-    window.location.href = "/admin";
   }
 
   return (
@@ -152,7 +164,7 @@ export default function AdminLoginPage() {
                 color: "#111827",
               }}
             >
-              Přihlášení
+              {recovery ? "Obnovení hesla" : "Přihlášení"}
             </h2>
             <p
               style={{
@@ -162,12 +174,13 @@ export default function AdminLoginPage() {
                 lineHeight: 1.6,
               }}
             >
-              Zadej svůj e-mail a heslo.
+              {recovery ? "Zadej e-mail svého účtu. Pošleme ti odkaz pro nastavení nového hesla." : "Zadej svůj e-mail a heslo."}
             </p>
           </div>
 
           <div>
             <label
+              htmlFor="login-email"
               style={{
                 display: "block",
                 marginBottom: 8,
@@ -178,7 +191,10 @@ export default function AdminLoginPage() {
               E-mail
             </label>
             <input
+              id="login-email"
               type="email"
+              autoComplete="email"
+              disabled={loading}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -186,8 +202,9 @@ export default function AdminLoginPage() {
             />
           </div>
 
-          <div>
+          {!recovery && <div>
             <label
+              htmlFor="login-password"
               style={{
                 display: "block",
                 marginBottom: 8,
@@ -198,16 +215,22 @@ export default function AdminLoginPage() {
               Heslo
             </label>
             <input
+              id="login-password"
               type="password"
+              autoComplete="current-password"
+              disabled={loading}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               style={inputStyle}
             />
-          </div>
+          </div>}
+
+          {message && <div role="status" style={{ color: "#166534", background: "#dcfce7", padding: 14, borderRadius: 16 }}>{message}</div>}
 
           {errorMessage && (
             <div
+              role="alert"
               style={{
                 color: "#b91c1c",
                 background: "#fee2e2",
@@ -235,7 +258,15 @@ export default function AdminLoginPage() {
               boxShadow: "0 12px 24px rgba(17,24,39,0.18)",
             }}
           >
-            {loading ? "Přihlašuji..." : "Přihlásit"}
+            {loading ? (recovery ? "Odesílám…" : "Přihlašuji...") : (recovery ? "Poslat odkaz pro obnovu hesla" : "Přihlásit")}
+          </button>
+          <button type="button" disabled={loading} onClick={() => {
+            setRecovery(!recovery);
+            setPassword("");
+            setMessage("");
+            setErrorMessage("");
+          }} style={{ background: "transparent", border: 0, color: "#1d4ed8", cursor: "pointer", padding: 8 }}>
+            {recovery ? "Zpět na přihlášení" : "Zapomenuté heslo / nastavit nové heslo"}
           </button>
         </form>
       </div>
