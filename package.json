@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test tests/geocoding.test.mjs"
+    "test": "node --test tests/geocoding.test.mjs tests/location.test.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

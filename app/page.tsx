@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { hasValidCoordinates } from "@/lib/location";
 
 const PlacesMap = dynamic(() => import("./places-map"), {
   ssr: false,
@@ -647,7 +648,7 @@ export default function HomePage() {
                       </div>
                       <div>
                         <strong>Vzdálenost od Kamenec u Poličky 180:</strong>{" "}
-                        {distance.toFixed(1)} km
+                        {hasValidCoordinates(place.lat, place.lng) ? `${distance.toFixed(1)} km` : "Poloha vyžaduje opravu"}
                       </div>
                     </div>
 
