@@ -24,6 +24,12 @@ aplikace je automaticky nepřevádí ani neodhaduje. Do opravy se takové body
 nezobrazují na přehledové mapě a odkazy Google Maps / Mapy.com vyhledávají
 podle názvu a adresy, místo aby předávaly neplatnou polohu.
 
+Tlačítko „Mapy.cz – trasa“ se po kliknutí zeptá na oprávnění ke zjištění
+aktuální polohy. Ta se předává Mapy.com jako start trasy, cílem je vybraná
+lokalita. Poloha se neukládá do databáze. Při zamítnutí oprávnění nebo chybě
+zůstane dostupné plánování se zadáním startu ručně. Souřadnice pro Mapy.com
+se předávají v pořadí délka, šířka.
+
 ## Obnova a změna hesla
 
 Na `/admin/login` lze zvolit „Zapomenuté heslo / nastavit nové heslo“.

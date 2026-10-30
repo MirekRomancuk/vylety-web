@@ -4,6 +4,7 @@ import CopyLinkButton from "./copy-link-button";
 import SharePlaceButton from "./share-place-button";
 import PlaceGallery from "./place-gallery";
 import { getMapLinks, hasValidCoordinates } from "@/lib/location";
+import MapyRouteButton from "./mapy-route-button";
 
 type Place = {
   id: string;
@@ -464,7 +465,7 @@ export default async function PlaceDetail({
                   Google Maps
                 </a>
 
-                <a
+                {validCoordinates ? <MapyRouteButton lat={place.lat} lng={place.lng} /> : <a
                   href={mapyCzUrl}
                   target="_blank"
                   rel="noreferrer"
@@ -479,7 +480,7 @@ export default async function PlaceDetail({
                   }}
                 >
                   Mapy.cz
-                </a>
+                </a>}
 
                 <CopyLinkButton placeId={place.id} />
 

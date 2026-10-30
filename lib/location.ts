@@ -3,6 +3,18 @@ export function hasValidCoordinates(lat: unknown, lng: unknown): boolean {
     Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180;
 }
 
+export function getMapyRouteUrl(destination: { lat: number; lng: number }, start?: { lat: number; lng: number }) {
+  if (!hasValidCoordinates(destination.lat, destination.lng) ||
+      (start && !hasValidCoordinates(start.lat, start.lng))) {
+    throw new Error("Invalid route coordinates");
+  }
+  const url = new URL("https://mapy.com/fnc/v1/route");
+  url.searchParams.set("end", `${destination.lng},${destination.lat}`);
+  if (start) url.searchParams.set("start", `${start.lng},${start.lat}`);
+  url.searchParams.set("routeType", "car_fast");
+  return url.toString();
+}
+
 export function getMapLinks(place: { name: string; address: string; lat: number; lng: number }) {
   const valid = hasValidCoordinates(place.lat, place.lng);
   const query = `${place.name}, ${place.address}`;
