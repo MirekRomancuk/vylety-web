@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase/client";
 import CopyLinkButton from "./copy-link-button";
 import SharePlaceButton from "./share-place-button";
 import PlaceGallery from "./place-gallery";
+import { getMapLinks, hasValidCoordinates } from "@/lib/location";
 
 type Place = {
   id: string;
@@ -44,16 +45,6 @@ function getDistanceKm(lat1: number, lng1: number, lat2: number, lng2: number) {
       Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
-}
-
-function getGoogleMapsUrl(lat: number, lng: number) {
-  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-    `${lat},${lng}`
-  )}`;
-}
-
-function getMapyCzUrl(lat: number, lng: number) {
-  return `https://mapy.cz/zakladni?x=${lng}&y=${lat}&z=15&source=coor&id=${lat}%2C${lng}`;
 }
 
 function getPublicImageUrl(path: string) {
@@ -129,8 +120,8 @@ export default async function PlaceDetail({
     place.lng
   );
 
-  const googleMapsUrl = getGoogleMapsUrl(place.lat, place.lng);
-  const mapyCzUrl = getMapyCzUrl(place.lat, place.lng);
+  const validCoordinates = hasValidCoordinates(place.lat, place.lng);
+  const { google: googleMapsUrl, mapy: mapyCzUrl } = getMapLinks(place);
   const heroImage = images[0] ? getPublicImageUrl(images[0].image_path) : null;
 
   return (
@@ -406,7 +397,7 @@ export default async function PlaceDetail({
                     SOUŘADNICE
                   </div>
                   <div style={{ color: "#111827", fontWeight: 700 }}>
-                    {place.lat}, {place.lng}
+                    {validCoordinates ? `${place.lat}, ${place.lng}` : "Poloha vyžaduje opravu. Odkazy do map hledají podle názvu a adresy."}
                   </div>
                 </div>
 
@@ -422,7 +413,7 @@ export default async function PlaceDetail({
                     VZDÁLENOST OD KAMENEC U POLIČKY 180
                   </div>
                   <div style={{ color: "#111827", fontWeight: 800, fontSize: 20 }}>
-                    {distance.toFixed(1)} km
+                    {validCoordinates ? `${distance.toFixed(1)} km` : "Nelze určit bez platné polohy"}
                   </div>
                 </div>
               </div>
@@ -546,7 +537,7 @@ export default async function PlaceDetail({
                 border: "1px solid #e5e7eb",
               }}
             >
-              <iframe
+              {validCoordinates ? <iframe
                 title={place.name}
                 width="100%"
                 height="420"
@@ -554,7 +545,10 @@ export default async function PlaceDetail({
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 src={`https://www.openstreetmap.org/export/embed.html?bbox=${place.lng - 0.02}%2C${place.lat - 0.02}%2C${place.lng + 0.02}%2C${place.lat + 0.02}&layer=mapnik&marker=${place.lat}%2C${place.lng}`}
-              />
+              /> : <p style={{ padding: 20, color: "#475569" }}>
+                U tohoto místa je potřeba opravit souřadnice v administraci.
+                Pro vyhledání podle názvu a adresy použij Google Maps nebo Mapy.cz výše.
+              </p>}
             </div>
           </div>
         </section>

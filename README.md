@@ -18,6 +18,12 @@ na URL kompatibilního Photon `/api/` endpointu s povoleným CORS.
 
 Testy geokódování: `npm test`.
 
+Souřadnice se ukládají v desetinných stupních WGS84 (šířka −90 až 90,
+délka −180 až 180). Starší neplatné hodnoty je nutné opravit v administraci;
+aplikace je automaticky nepřevádí ani neodhaduje. Do opravy se takové body
+nezobrazují na přehledové mapě a odkazy Google Maps / Mapy.com vyhledávají
+podle názvu a adresy, místo aby předávaly neplatnou polohu.
+
 ## Lokální spuštění
 
 First, run the development server:

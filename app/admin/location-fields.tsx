@@ -2,16 +2,20 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { findLocations, type LocationResult } from "@/lib/geocoding";
+import { hasValidCoordinates } from "@/lib/location";
 
 type Coordinates = { address: string; lat: string; lng: string };
 
 export function usePlaceLocation(initial: Coordinates = { address: "", lat: "", lng: "" }) {
   const [value, setValue] = useState(initial);
   const [searching, setSearching] = useState(false);
-  const [message, setMessage] = useState("");
+  const initialValid = initial.lat.trim() !== "" && initial.lng.trim() !== "" &&
+    hasValidCoordinates(Number(initial.lat), Number(initial.lng));
+  const [message, setMessage] = useState(initial.address && !initialValid
+    ? "Uložené souřadnice nejsou platné. Vyhledej adresu znovu nebo zadej desetinné stupně (např. 49.700306, 16.180018)." : "");
   const [results, setResults] = useState<LocationResult[]>([]);
   const request = useRef<AbortController | null>(null);
-  const lastQuery = useRef(initial.address.trim());
+  const lastQuery = useRef(initialValid ? initial.address.trim() : "");
 
   useEffect(() => () => request.current?.abort(), []);
 

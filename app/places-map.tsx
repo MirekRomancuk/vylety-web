@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { hasValidCoordinates } from "@/lib/location";
 import Link from "next/link";
-// @ts-ignore - v tomto projektu chybí deklarace pro leaflet
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import {
@@ -111,6 +111,8 @@ export default function PlacesMap({
   onMarkerClick,
 }: Props) {
   const defaultCenter: [number, number] = [49.7149, 16.2658];
+  const mappedPlaces = useMemo(() => places.filter((place) =>
+    hasValidCoordinates(place.lat, place.lng)), [places]);
 
   return (
     <div
@@ -142,14 +144,14 @@ export default function PlacesMap({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
-            <FitBounds places={places} />
+            <FitBounds places={mappedPlaces} />
             <MapSelectionController
-              places={places}
+              places={mappedPlaces}
               selectedPlaceId={selectedPlaceId}
             />
             <MapClickReset />
 
-            {places.map((place) => {
+            {mappedPlaces.map((place) => {
               const isSelected = selectedPlaceId === place.id;
 
               return (
