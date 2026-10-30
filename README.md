@@ -1,6 +1,24 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Vyhledávání souřadnic v administraci
+
+Ve formulářích pro přidání i úpravu místa se po změně adresy a opuštění pole
+(nebo stisku Enter) vyhledá poloha přes [Photon](https://github.com/komoot/photon).
+Jediný výsledek se doplní automaticky, více výsledků vyžaduje výběr lokality.
+Tlačítkem „Vyhledat souřadnice“ lze hledání zopakovat i pro uloženou adresu.
+Změna adresy vymaže předchozí souřadnice; ruční zadání souřadnic zruší probíhající hledání.
+Pouhé otevření existující lokality její souřadnice nemění.
+
+Vyhledávání odesílá zadanou adresu veřejné službě `photon.komoot.io` a používá
+data © OpenStreetMap contributors. Není potřeba API klíč. Veřejný server je určen
+pro přiměřený provoz a negarantuje dostupnost; při chybě lze polohu zadat ručně.
+Výsledky se během otevření aplikace ukládají do omezené paměťové cache.
+Pro vlastní instanci lze před sestavením nastavit `NEXT_PUBLIC_GEOCODING_URL`
+na URL kompatibilního Photon `/api/` endpointu s povoleným CORS.
+
+Testy geokódování: `npm test`.
+
+## Lokální spuštění
 
 First, run the development server:
 

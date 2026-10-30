@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
+import LocationFields, { usePlaceLocation } from "./location-fields";
 
 const tripTypes = [
   "Přírodní zajímavost",
@@ -20,9 +21,8 @@ export default function NewPlaceForm() {
   const [name, setName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
-  const [address, setAddress] = useState("");
-  const [lat, setLat] = useState("");
-  const [lng, setLng] = useState("");
+  const location = usePlaceLocation();
+  const { address, lat, lng } = location;
   const [selectedTripTypes, setSelectedTripTypes] = useState<string[]>([]);
   const [visible, setVisible] = useState(true);
   const [files, setFiles] = useState<FileList | null>(null);
@@ -39,6 +39,12 @@ export default function NewPlaceForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (location.searching || !lat.trim() || !lng.trim() ||
+        !Number.isFinite(Number(lat)) || !Number.isFinite(Number(lng)) ||
+        Math.abs(Number(lat)) > 90 || Math.abs(Number(lng)) > 180) {
+      setMessage("Chyba: Vyplň platné souřadnice nebo dokonči vyhledání adresy.");
+      return;
+    }
     setSaving(true);
     setMessage("");
 
@@ -106,9 +112,7 @@ export default function NewPlaceForm() {
     setName("");
     setShortDescription("");
     setLongDescription("");
-    setAddress("");
-    setLat("");
-    setLng("");
+    location.reset();
     setSelectedTripTypes([]);
     setVisible(true);
     setFiles(null);
@@ -185,47 +189,7 @@ export default function NewPlaceForm() {
           />
         </div>
 
-        <div>
-          <label style={labelStyle}>Adresa / oblast</label>
-          <input
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-            style={inputStyle}
-          />
-        </div>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 16,
-          }}
-        >
-          <div>
-            <label style={labelStyle}>Latitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-              required
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Longitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-              required
-              style={inputStyle}
-            />
-          </div>
-        </div>
+        <LocationFields location={location} disabled={saving} />
 
         <div>
           <label style={labelStyle}>Typy výletu</label>
@@ -319,7 +283,7 @@ export default function NewPlaceForm() {
       <div style={{ marginTop: 20 }}>
         <button
           type="submit"
-          disabled={saving}
+          disabled={saving || location.searching}
           style={{
             padding: "13px 18px",
             borderRadius: 16,

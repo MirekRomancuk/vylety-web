@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
+import LocationFields, { usePlaceLocation } from "./location-fields";
 
 const tripTypes = [
   "Přírodní zajímavost",
@@ -49,9 +50,8 @@ export default function EditPlaceForm({ place, onClose }: Props) {
   const [name, setName] = useState(place.name);
   const [shortDescription, setShortDescription] = useState(place.short_description);
   const [longDescription, setLongDescription] = useState(place.long_description);
-  const [address, setAddress] = useState(place.address);
-  const [lat, setLat] = useState(String(place.lat));
-  const [lng, setLng] = useState(String(place.lng));
+  const location = usePlaceLocation({ address: place.address, lat: String(place.lat), lng: String(place.lng) });
+  const { address, lat, lng } = location;
   const [selectedTripTypes, setSelectedTripTypes] = useState<string[]>(place.trip_types || []);
   const [visible, setVisible] = useState(place.visible);
 
@@ -88,6 +88,12 @@ export default function EditPlaceForm({ place, onClose }: Props) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (location.searching || !lat.trim() || !lng.trim() ||
+        !Number.isFinite(Number(lat)) || !Number.isFinite(Number(lng)) ||
+        Math.abs(Number(lat)) > 90 || Math.abs(Number(lng)) > 180) {
+      setMessage("Chyba: Vyplň platné souřadnice nebo dokonči vyhledání adresy.");
+      return;
+    }
     setSaving(true);
     setMessage("");
 
@@ -384,39 +390,7 @@ export default function EditPlaceForm({ place, onClose }: Props) {
             />
           </div>
 
-          <div style={{ gridColumn: "1 / -1" }}>
-            <label style={labelStyle}>Adresa / oblast</label>
-            <input
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Latitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={lat}
-              onChange={(e) => setLat(e.target.value)}
-              required
-              style={inputStyle}
-            />
-          </div>
-
-          <div>
-            <label style={labelStyle}>Longitude</label>
-            <input
-              type="number"
-              step="0.000001"
-              value={lng}
-              onChange={(e) => setLng(e.target.value)}
-              required
-              style={inputStyle}
-            />
-          </div>
+          <LocationFields location={location} disabled={saving} />
 
           <div style={{ gridColumn: "1 / -1" }}>
             <label style={labelStyle}>Typy výletu</label>
@@ -654,7 +628,7 @@ export default function EditPlaceForm({ place, onClose }: Props) {
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <button
             type="submit"
-            disabled={saving}
+            disabled={saving || location.searching}
             style={{
               padding: "13px 18px",
               borderRadius: 16,
