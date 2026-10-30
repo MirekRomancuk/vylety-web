@@ -25,10 +25,13 @@ nezobrazují na přehledové mapě a odkazy Google Maps / Mapy.com vyhledávají
 podle názvu a adresy, místo aby předávaly neplatnou polohu.
 
 Tlačítko „Mapy.cz – trasa“ se po kliknutí zeptá na oprávnění ke zjištění
-aktuální polohy. Ta se předává Mapy.com jako start trasy, cílem je vybraná
-lokalita. Poloha se neukládá do databáze. Při zamítnutí oprávnění nebo chybě
-zůstane dostupné plánování se zadáním startu ručně. Souřadnice pro Mapy.com
-se předávají v pořadí délka, šířka.
+aktuální polohy. Start se nejprve zobrazí ke kontrole včetně odhadované
+přesnosti a vzdálenosti od cíle; Mapy.com se otevřou až po potvrzení.
+Při vzdálenosti nad 300 km nebo přesnosti horší než 1 km (také při neznámé
+přesnosti) se zobrazí varování. Poloha se zjišťuje znovu bez použití staré
+cache a neukládá se do databáze. Ruční zadání startu je dostupné vždy,
+i při zamítnutí oprávnění nebo chybě. Souřadnice pro Mapy.com se předávají
+v pořadí délka, šířka.
 
 ## Obnova a změna hesla
 
