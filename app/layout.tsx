@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./responsive.css";
 
 export const metadata: Metadata = {
   title: "Tipy na výlety Polička a okolí",

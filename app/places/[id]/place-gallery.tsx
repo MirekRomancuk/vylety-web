@@ -48,7 +48,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))",
           gap: 16,
         }}
       >
@@ -85,7 +85,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
       </div>
 
       {activeIndex !== null && (
-        <div
+        <div className="gallery-overlay"
           onClick={closeLightbox}
           style={{
             position: "fixed",
@@ -97,7 +97,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
             zIndex: 9999,
           }}
         >
-          <div
+          <div className="gallery-dialog"
             onClick={(e) => e.stopPropagation()}
             style={{
               width: "min(1100px, 100%)",
@@ -105,7 +105,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
               gap: 16,
             }}
           >
-            <div
+            <div className="gallery-header"
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -142,7 +142,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
                 placeItems: "center",
               }}
             >
-              <img
+              <img className="gallery-main-photo"
                 src={getImageUrl(sortedImages[activeIndex].image_path)}
                 alt={`${placeName} ${activeIndex + 1}`}
                 style={{
@@ -200,7 +200,7 @@ export default function PlaceGallery({ placeName, images }: Props) {
             </div>
 
             {sortedImages.length > 1 && (
-              <div
+              <div className="gallery-thumbnails"
                 style={{
                   display: "flex",
                   gap: 10,

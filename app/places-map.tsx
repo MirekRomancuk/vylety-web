@@ -125,7 +125,7 @@ export default function PlacesMap({
       }}
     >
       <div style={{ padding: 16 }}>
-        <div
+        <div className="overview-map"
           style={{
             height: 480,
             borderRadius: 20,

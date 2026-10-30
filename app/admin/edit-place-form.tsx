@@ -261,19 +261,19 @@ export default function EditPlaceForm({ place, onClose }: Props) {
   }
 
   return (
-    <div
+    <div className="edit-overlay"
       style={{
         position: "fixed",
         inset: 0,
         background: "rgba(15,23,42,0.55)",
         display: "grid",
         placeItems: "center",
-        padding: 24,
+        padding: "clamp(16px, 3vw, 24px)",
         zIndex: 1000,
         backdropFilter: "blur(6px)",
       }}
     >
-      <form
+      <form className="edit-dialog"
         onSubmit={handleSubmit}
         style={{
           width: "100%",
@@ -282,14 +282,14 @@ export default function EditPlaceForm({ place, onClose }: Props) {
           overflow: "auto",
           background: "#ffffff",
           borderRadius: 28,
-          padding: 24,
+          padding: "clamp(16px, 3vw, 24px)",
           boxShadow: "0 30px 60px rgba(15,23,42,0.24)",
           display: "grid",
           gap: 20,
           border: "1px solid #e5e7eb",
         }}
       >
-        <div
+        <div className="dialog-heading"
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -351,11 +351,10 @@ export default function EditPlaceForm({ place, onClose }: Props) {
           </button>
         </div>
 
-        <div
+        <div className="edit-fields-grid"
           style={{
             display: "grid",
             gap: 20,
-            gridTemplateColumns: "1fr 1fr",
           }}
         >
           <div style={{ gridColumn: "1 / -1" }}>
@@ -521,7 +520,7 @@ export default function EditPlaceForm({ place, onClose }: Props) {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))",
                   gap: 16,
                 }}
               >

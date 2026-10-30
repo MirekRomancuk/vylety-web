@@ -97,7 +97,7 @@ export default function AdminPage() {
               borderRadius: 24,
               background: "#ffffff",
               boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-              padding: 24,
+              padding: "clamp(16px, 3vw, 24px)",
             }}
           >
             Ověřuji přihlášení...
@@ -116,7 +116,7 @@ export default function AdminPage() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <div
+      <div className="page-shell"
         style={{
           maxWidth: 1180,
           margin: "0 auto",
@@ -128,16 +128,15 @@ export default function AdminPage() {
             background: "linear-gradient(135deg, #111827 0%, #1f2937 100%)",
             color: "white",
             borderRadius: 28,
-            padding: 28,
+            padding: "clamp(16px, 3vw, 28px)",
             boxShadow: "0 30px 60px rgba(15,23,42,0.20)",
             marginBottom: 24,
           }}
         >
-          <div
+          <div className="admin-hero-grid"
             style={{
               display: "grid",
               gap: 20,
-              gridTemplateColumns: "1.2fr 0.8fr",
             }}
           >
             <div>
@@ -158,7 +157,7 @@ export default function AdminPage() {
               <h1
                 style={{
                   margin: 0,
-                  fontSize: 40,
+                  fontSize: "clamp(28px, 5vw, 40px)",
                   lineHeight: 1.1,
                   letterSpacing: "-0.02em",
                 }}
@@ -244,7 +243,7 @@ export default function AdminPage() {
             borderRadius: 24,
             background: "#ffffff",
             boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-            padding: 24,
+            padding: "clamp(16px, 3vw, 24px)",
           }}
         >
           <div style={{ marginBottom: 18 }}>

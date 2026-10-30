@@ -1,0 +1,53 @@
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #111827; }
+button, input, textarea, select { font-family: inherit; }
+input, textarea, select { min-width: 0; max-width: 100%; }
+button, a { -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, p, label { overflow-wrap: anywhere; }
+:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+
+.home-hero-grid { grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr); }
+.detail-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+.admin-hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+.login-grid { grid-template-columns: minmax(0, 1fr) 420px; }
+.edit-fields-grid, .coordinates-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.home-hero-grid > *, .detail-grid > *, .admin-hero-grid > *, .login-grid > *,
+.edit-fields-grid > *, .coordinates-grid > * { min-width: 0; }
+.login-shell { width: 100%; }
+.page-shell, .login-shell, .edit-dialog { overflow-wrap: anywhere; }
+.home-stats > *, .gallery-header > div { min-width: 0; }
+.gallery-dialog { max-height: calc(100dvh - 48px); overflow-y: auto; min-width: 0; }
+.gallery-thumbnails { min-width: 0; }
+.gallery-thumbnails > button { flex: 0 0 auto; }
+.dialog-heading { flex-wrap: wrap; }
+
+@media (max-width: 900px) {
+  .home-hero-grid, .detail-grid, .admin-hero-grid, .login-grid { grid-template-columns: minmax(0, 1fr); }
+  .login-intro { min-height: 0 !important; }
+}
+
+@media (max-width: 600px) {
+  .home-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-shell { padding: 16px 12px 32px !important; }
+  .login-page { padding: 16px 12px !important; }
+  .login-intro, .login-form { padding: 20px !important; }
+  .login-intro-details { display: none; }
+  .detail-hero-photo { height: 300px !important; }
+  .detail-hero-caption { left: 16px !important; right: 16px !important; bottom: 16px !important; }
+  .edit-fields-grid, .coordinates-grid { grid-template-columns: minmax(0, 1fr); }
+  .edit-overlay { padding: 8px !important; }
+  .edit-dialog { max-height: calc(100dvh - 16px) !important; border-radius: 20px !important; }
+  .managed-place-content { min-width: 0 !important; flex-basis: 100% !important; }
+  .managed-place-actions { width: 100%; min-width: 0 !important; }
+  .overview-map { height: 340px !important; }
+  .location-map { height: 320px; }
+  .gallery-overlay { padding: 10px !important; }
+  .gallery-dialog { max-height: calc(100dvh - 20px); gap: 10px !important; }
+  .gallery-header { align-items: flex-start !important; }
+  .gallery-main-photo { max-height: 60dvh !important; }
+  .gallery-header button { flex-shrink: 0; }
+  button, input, select { min-height: 44px; }
+  input[type="checkbox"], input[type="radio"] { min-height: auto; }
+  input, textarea, select { font-size: 16px; }
+  .leaflet-control button { min-height: 30px; }
+}

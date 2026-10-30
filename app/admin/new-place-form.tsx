@@ -131,7 +131,7 @@ export default function NewPlaceForm() {
         borderRadius: 24,
         background: "#ffffff",
         boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-        padding: 24,
+        padding: "clamp(16px, 3vw, 24px)",
       }}
     >
       <div style={{ marginBottom: 20 }}>

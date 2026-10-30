@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main
+    <main className="login-page"
       style={{
         minHeight: "100vh",
         background:
@@ -53,17 +53,16 @@ export default function AdminLoginPage() {
         padding: 24,
       }}
     >
-      <div
+      <div className="login-grid login-shell"
         style={{
           width: "100%",
           maxWidth: 980,
           display: "grid",
-          gridTemplateColumns: "1fr 420px",
           gap: 24,
           alignItems: "stretch",
         }}
       >
-        <section
+        <section className="login-intro"
           style={{
             background: "linear-gradient(135deg, #111827 0%, #1f2937 100%)",
             color: "white",
@@ -93,7 +92,7 @@ export default function AdminLoginPage() {
             <h1
               style={{
                 margin: 0,
-                fontSize: 40,
+                fontSize: "clamp(28px, 5vw, 40px)",
                 lineHeight: 1.1,
                 letterSpacing: "-0.02em",
               }}
@@ -117,7 +116,7 @@ export default function AdminLoginPage() {
             </p>
           </div>
 
-          <div
+          <div className="login-intro-details"
             style={{
               display: "grid",
               gap: 12,
@@ -142,7 +141,7 @@ export default function AdminLoginPage() {
           </div>
         </section>
 
-        <form
+        <form className="login-form"
           onSubmit={handleLogin}
           style={{
             background: "#ffffff",

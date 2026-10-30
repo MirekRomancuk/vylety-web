@@ -63,7 +63,7 @@ export default function PlacesManager({ places }: Props) {
               boxShadow: "0 12px 28px rgba(15,23,42,0.06)",
             }}
           >
-            <div style={{ flex: 1, minWidth: 280 }}>
+            <div className="managed-place-content" style={{ flex: 1, minWidth: 280 }}>
               <div
                 style={{
                   display: "flex",
@@ -149,7 +149,7 @@ export default function PlacesManager({ places }: Props) {
               </div>
             </div>
 
-            <div
+            <div className="managed-place-actions"
               style={{
                 display: "grid",
                 gap: 10,

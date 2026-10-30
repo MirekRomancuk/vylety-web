@@ -46,7 +46,17 @@ na ostrou doménu a v Redirect URLs výslovně povolená adresa
 `https://www.kamenka180.cz/admin/reset-password`. Pro místní testování se
 samostatně povoluje konkrétní místní callback; produkční nastavení nevyžaduje wildcard.
 
-## Spuštění vývojového serveru
+## Rozložení pro telefon
+
+Společné rozměry a breakpointy jsou v `app/responsive.css`, načítaném kořenovým
+layoutem. Do šířky 900 px se hlavní dvousloupcové sekce skládají pod sebe;
+do 600 px se upravuje odsazení, mapa, souřadnice, administrátorský dialog
+a galerie. Minimální šířky karet nepřesahují dostupnou šířku kontejneru.
+Mobilní ovládací prvky mají alespoň 44 px a formulářová pole alespoň 16px písmo.
+Úprava byla ověřena v prohlížeči na šířkách 320, 375, 390, 768 a 1280 px,
+včetně přihlášení, obnovy hesla, administrace, úpravy lokality a fotogalerie.
+
+## Vývojový server
 
 First, run the development server:
 

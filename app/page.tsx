@@ -209,7 +209,7 @@ export default function HomePage() {
           'Inter, Arial, Helvetica, sans-serif',
       }}
     >
-      <div
+      <div className="page-shell"
         style={{
           maxWidth: 1240,
           margin: "0 auto",
@@ -220,17 +220,16 @@ export default function HomePage() {
           style={{
             marginBottom: 24,
             borderRadius: 32,
-            padding: 24,
+            padding: "clamp(16px, 3vw, 24px)",
             background:
               "linear-gradient(135deg, #111827 0%, #0f172a 35%, #14213d 65%, #1e293b 100%)",
             color: "white",
             boxShadow: "0 24px 48px rgba(15,23,42,0.22)",
           }}
         >
-          <div
+          <div className="home-hero-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "minmax(0, 1.35fr) minmax(280px, 0.85fr)",
               gap: 22,
               alignItems: "stretch",
             }}
@@ -263,7 +262,7 @@ export default function HomePage() {
               <h1
                 style={{
                   margin: 0,
-                  fontSize: 56,
+                  fontSize: "clamp(32px, 6vw, 56px)",
                   lineHeight: 0.96,
                   letterSpacing: "-0.03em",
                   fontWeight: 800,
@@ -289,7 +288,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div
+            <div className="home-stats"
               style={{
                 display: "grid",
                 gap: 14,
@@ -348,7 +347,7 @@ export default function HomePage() {
                 </div>
                 <div
                   style={{
-                    fontSize: 30,
+                    fontSize: "clamp(20px, 4vw, 30px)",
                     lineHeight: 1.1,
                     fontWeight: 800,
                     letterSpacing: "-0.02em",
@@ -492,7 +491,7 @@ export default function HomePage() {
           <div
             style={{
               borderRadius: 28,
-              padding: 24,
+              padding: "clamp(16px, 3vw, 24px)",
               background: "rgba(255,255,255,0.92)",
               boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
             }}
@@ -503,7 +502,7 @@ export default function HomePage() {
           <div
             style={{
               borderRadius: 28,
-              padding: 24,
+              padding: "clamp(16px, 3vw, 24px)",
               background: "rgba(255,255,255,0.92)",
               boxShadow: "0 14px 34px rgba(15,23,42,0.06)",
             }}
@@ -514,7 +513,7 @@ export default function HomePage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
               gap: 22,
             }}
           >
@@ -578,7 +577,7 @@ export default function HomePage() {
                   <div
                     onClick={() => handleCardSelect(place.id)}
                     style={{
-                      padding: 22,
+                      padding: "clamp(16px, 3vw, 22px)",
                       cursor: "pointer",
                       background: isSelected ? "#f8fbff" : "#ffffff",
                     }}

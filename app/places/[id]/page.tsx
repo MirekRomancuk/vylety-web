@@ -92,7 +92,7 @@ export default async function PlaceDetail({
               borderRadius: 24,
               background: "#ffffff",
               boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-              padding: 24,
+              padding: "clamp(16px, 3vw, 24px)",
             }}
           >
             <h1>Místo nebylo nalezeno</h1>
@@ -134,7 +134,7 @@ export default async function PlaceDetail({
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <div
+      <div className="page-shell"
         style={{
           maxWidth: 1100,
           margin: "0 auto",
@@ -152,7 +152,7 @@ export default async function PlaceDetail({
           }}
         >
           {heroImage ? (
-            <div
+            <div className="detail-hero-photo"
               style={{
                 position: "relative",
                 height: 340,
@@ -177,7 +177,7 @@ export default async function PlaceDetail({
                     "linear-gradient(180deg, rgba(15,23,42,0.10) 0%, rgba(15,23,42,0.75) 100%)",
                 }}
               />
-              <div
+              <div className="detail-hero-caption"
                 style={{
                   position: "absolute",
                   left: 24,
@@ -205,7 +205,7 @@ export default async function PlaceDetail({
                 <h1
                   style={{
                     margin: 0,
-                    fontSize: 42,
+                    fontSize: "clamp(28px, 5vw, 42px)",
                     lineHeight: 1.1,
                     letterSpacing: "-0.02em",
                   }}
@@ -248,7 +248,7 @@ export default async function PlaceDetail({
               <h1
                 style={{
                   margin: 0,
-                  fontSize: 42,
+                  fontSize: "clamp(28px, 5vw, 42px)",
                   lineHeight: 1.1,
                   letterSpacing: "-0.02em",
                 }}
@@ -272,11 +272,10 @@ export default async function PlaceDetail({
           )}
         </section>
 
-        <section
+        <section className="detail-grid"
           style={{
             display: "grid",
             gap: 20,
-            gridTemplateColumns: "1.15fr 0.85fr",
             marginBottom: 24,
           }}
         >
@@ -286,7 +285,7 @@ export default async function PlaceDetail({
               borderRadius: 24,
               background: "#ffffff",
               boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-              padding: 24,
+              padding: "clamp(16px, 3vw, 24px)",
             }}
           >
             <div
@@ -350,7 +349,7 @@ export default async function PlaceDetail({
                 borderRadius: 24,
                 background: "#ffffff",
                 boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-                padding: 24,
+                padding: "clamp(16px, 3vw, 24px)",
               }}
             >
               <h2
@@ -426,7 +425,7 @@ export default async function PlaceDetail({
                 borderRadius: 24,
                 background: "#ffffff",
                 boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-                padding: 24,
+                padding: "clamp(16px, 3vw, 24px)",
               }}
             >
               <h2
@@ -538,7 +537,7 @@ export default async function PlaceDetail({
                 border: "1px solid #e5e7eb",
               }}
             >
-              {validCoordinates ? <iframe
+              {validCoordinates ? <iframe className="location-map"
                 title={place.name}
                 width="100%"
                 height="420"
@@ -560,7 +559,7 @@ export default async function PlaceDetail({
             borderRadius: 24,
             background: "#ffffff",
             boxShadow: "0 20px 40px rgba(15,23,42,0.08)",
-            padding: 24,
+            padding: "clamp(16px, 3vw, 24px)",
           }}
         >
           <div style={{ marginBottom: 18 }}>

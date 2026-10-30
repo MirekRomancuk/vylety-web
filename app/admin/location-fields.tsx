@@ -141,7 +141,7 @@ export default function LocationFields({ location, disabled = false }: {
           {" · © "}<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a>
         </small>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}>
+      <div className="coordinates-grid" style={{ display: "grid", gap: 16 }}>
         {(["lat", "lng"] as const).map((field) => (
           <div key={field}>
             <label htmlFor={`${id}-${field}`} style={labelStyle}>
